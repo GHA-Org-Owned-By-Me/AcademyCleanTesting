@@ -30,9 +30,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "9.0.x"
+          cache: true
 
       - name: Display dotnet version
-        run: dotnet --version
+        run: | 
+          VERSION=dotnet --version
 
       - name: Display docker version
         run: docker --version
@@ -54,14 +56,15 @@ jobs:
           path: "**/*.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
+      
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-results-Application-Integration-Tests
+          path: TestResults
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
+
       - name: .NET Test for the whole solution
         run: dotnet test $SOLUTION --no-restore --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results-sln.trx" || true
-      
-      - name: Generate Test Report for the whole sln
-        uses: dorny/test-reporter@v1
-        if: always()    # run this step even if previous step failed
-        with:
-          name: .NET Test Report for the whole solution
-          path: "**/test-results-sln..trx"                            
-          reporter: dotnet-trx
-          fail-on-error: true
+
