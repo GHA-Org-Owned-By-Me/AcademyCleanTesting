@@ -34,7 +34,7 @@ jobs:
 
       - name: Display dotnet version
         run: | 
-          VERSION=dotnet --version
+          dotnet --version
 
       - name: Display docker version
         run: docker --version
@@ -53,7 +53,7 @@ jobs:
         if: success() || failure()    # run this step even if previous step failed
         with:
           name: .NET Test Report
-          path: "**/*.trx"                            
+          path: "**/test-results.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
       
