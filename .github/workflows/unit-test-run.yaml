@@ -21,6 +21,9 @@ jobs:
       - name: Display dotnet version
         run: dotnet --version
 
+      - name: Display docker version
+        run: docker --version
+
       - name: .NET Restore
         run: dotnet restore ./AcademyCleanTesting.sln
 
