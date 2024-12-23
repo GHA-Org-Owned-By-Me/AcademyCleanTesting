@@ -5,7 +5,6 @@ using FluentAssertions;
 
 namespace Application.IntegrationTests.TodoLists.Commands;
 
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using static Testing;
 
 public class CreateTodoListTests : BaseTestFixture
