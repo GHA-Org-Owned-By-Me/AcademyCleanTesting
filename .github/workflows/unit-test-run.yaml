@@ -51,7 +51,7 @@ jobs:
         if: success() || failure()    # run this step even if previous step failed
         # if: always()
         with:
-          name: DotNET Test Report
-          path: "**/test-results.trx"                            
+          name: .NET Test Report
+          path: "**/*.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
