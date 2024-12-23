@@ -19,7 +19,6 @@ public class SqlTestcontainersTestDatabase : ITestDatabase
     public SqlTestcontainersTestDatabase()
     {
         _container = new MsSqlBuilder()
-            .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
             .WithAutoRemove(true)
             .Build();
     }

@@ -8,6 +8,16 @@ on:
 jobs:
   run-tests:
     runs-on: windows-latest
+    
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: yourStrong(!)Password
+          MSSQL_PID: Express
+        ports:
+          - 1433:1433
 
     steps:
       - name: check out the repo
