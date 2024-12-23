@@ -1,0 +1,31 @@
+name: Run Tests
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check out the repo
+        uses: actions/checkout@v4
+
+      - name: .NET Core Setup
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Display dotnet version
+        run: dotnet --version
+
+      - name: .NET Restore
+        run: dotnet restore ./AcademyCleanTesting.sln
+
+      - name: .NET Build
+        run: dotnet build ./AcademyCleanTesting.sln --no-restore
+
+      - name: .NET Test
+        run: dotnet test ./tests/Application.Integration.Tests
